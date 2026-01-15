@@ -1,0 +1,65 @@
+[
+  {
+    "objectID": "eda.html",
+    "href": "eda.html",
+    "title": "Penguins EDA",
+    "section": "",
+    "text": "Code\nlibrary(palmerpenguins)\n\n\n\nAttaching package: 'palmerpenguins'\n\n\nThe following objects are masked from 'package:datasets':\n\n    penguins, penguins_raw\n\n\nCode\nlibrary(dplyr)\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\nCode\nlibrary(ggplot2)\n\ndf &lt;- palmerpenguins::penguins\n\nhead(df)\n\n\n# A tibble: 6 × 8\n  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g\n  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;\n1 Adelie  Torgersen           39.1          18.7               181        3750\n2 Adelie  Torgersen           39.5          17.4               186        3800\n3 Adelie  Torgersen           40.3          18                 195        3250\n4 Adelie  Torgersen           NA            NA                  NA          NA\n5 Adelie  Torgersen           36.7          19.3               193        3450\n6 Adelie  Torgersen           39.3          20.6               190        3650\n# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;\n\n\n\n\nCode\ndf |&gt;\n    group_by(species, sex) |&gt;\n    summarise(\n        across(\n            where(is.numeric),\n            ~mean(., na.rm = TRUE)\n        )\n    )\n\n\n`summarise()` has grouped output by 'species'. You can override using the\n`.groups` argument.\n\n\n# A tibble: 8 × 7\n# Groups:   species [3]\n  species sex   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g  year\n  &lt;fct&gt;   &lt;fct&gt;          &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;\n1 Adelie  fema…           37.3          17.6              188.       3369. 2008.\n2 Adelie  male            40.4          19.1              192.       4043. 2008.\n3 Adelie  &lt;NA&gt;            37.8          18.3              186.       3540  2007 \n4 Chinst… fema…           46.6          17.6              192.       3527. 2008.\n5 Chinst… male            51.1          19.3              200.       3939. 2008.\n6 Gentoo  fema…           45.6          14.2              213.       4680. 2008.\n7 Gentoo  male            49.5          15.7              222.       5485. 2008.\n8 Gentoo  &lt;NA&gt;            45.6          14.6              216.       4588. 2008.\n\n\n\n\nCode\nggplot(data = df, aes(x = bill_length_mm, y = body_mass_g, color = species)) +\n    geom_point() +\n    geom_smooth(method = \"lm\")\n\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: Removed 2 rows containing non-finite outside the scale range\n(`stat_smooth()`).\n\n\nWarning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\n\n\n\n\n\n\nCode\n# con &lt;- DBI::dbConnect(\n#   duckdb::duckdb(), \n#   dbdir = \"my-db.duckdb\"\n#   )\n# df &lt;- dplyr::tbl(con, \"penguins\")\n# DBI::dbDisconnect(con)"
+  },
+  {
+    "objectID": "eda.html#penguin-size-and-mass-by-sex-and-species",
+    "href": "eda.html#penguin-size-and-mass-by-sex-and-species",
+    "title": "Penguins EDA",
+    "section": "",
+    "text": "Code\nlibrary(palmerpenguins)\n\n\n\nAttaching package: 'palmerpenguins'\n\n\nThe following objects are masked from 'package:datasets':\n\n    penguins, penguins_raw\n\n\nCode\nlibrary(dplyr)\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\nCode\nlibrary(ggplot2)\n\ndf &lt;- palmerpenguins::penguins\n\nhead(df)\n\n\n# A tibble: 6 × 8\n  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g\n  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;\n1 Adelie  Torgersen           39.1          18.7               181        3750\n2 Adelie  Torgersen           39.5          17.4               186        3800\n3 Adelie  Torgersen           40.3          18                 195        3250\n4 Adelie  Torgersen           NA            NA                  NA          NA\n5 Adelie  Torgersen           36.7          19.3               193        3450\n6 Adelie  Torgersen           39.3          20.6               190        3650\n# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;\n\n\n\n\nCode\ndf |&gt;\n    group_by(species, sex) |&gt;\n    summarise(\n        across(\n            where(is.numeric),\n            ~mean(., na.rm = TRUE)\n        )\n    )\n\n\n`summarise()` has grouped output by 'species'. You can override using the\n`.groups` argument.\n\n\n# A tibble: 8 × 7\n# Groups:   species [3]\n  species sex   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g  year\n  &lt;fct&gt;   &lt;fct&gt;          &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;\n1 Adelie  fema…           37.3          17.6              188.       3369. 2008.\n2 Adelie  male            40.4          19.1              192.       4043. 2008.\n3 Adelie  &lt;NA&gt;            37.8          18.3              186.       3540  2007 \n4 Chinst… fema…           46.6          17.6              192.       3527. 2008.\n5 Chinst… male            51.1          19.3              200.       3939. 2008.\n6 Gentoo  fema…           45.6          14.2              213.       4680. 2008.\n7 Gentoo  male            49.5          15.7              222.       5485. 2008.\n8 Gentoo  &lt;NA&gt;            45.6          14.6              216.       4588. 2008.\n\n\n\n\nCode\nggplot(data = df, aes(x = bill_length_mm, y = body_mass_g, color = species)) +\n    geom_point() +\n    geom_smooth(method = \"lm\")\n\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: Removed 2 rows containing non-finite outside the scale range\n(`stat_smooth()`).\n\n\nWarning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\n\n\n\n\n\n\nCode\n# con &lt;- DBI::dbConnect(\n#   duckdb::duckdb(), \n#   dbdir = \"my-db.duckdb\"\n#   )\n# df &lt;- dplyr::tbl(con, \"penguins\")\n# DBI::dbDisconnect(con)"
+  },
+  {
+    "objectID": "model.html",
+    "href": "model.html",
+    "title": "Model",
+    "section": "",
+    "text": "Code\nfrom pandas import get_dummies\nimport numpy as np\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn import preprocessing"
+  },
+  {
+    "objectID": "model.html#get-data",
+    "href": "model.html#get-data",
+    "title": "Model",
+    "section": "Get Data",
+    "text": "Get Data\n\n\nCode\nimport duckdb\ncon = duckdb.connect('my-db.duckdb')\ndf = con.execute(\"SELECT * FROM penguins\").fetchdf().dropna()\ncon.close()\n\ndf.head(3)\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007"
+  },
+  {
+    "objectID": "model.html#define-model-and-fit",
+    "href": "model.html#define-model-and-fit",
+    "title": "Model",
+    "section": "Define Model and Fit",
+    "text": "Define Model and Fit\n\n\nCode\nX = get_dummies(df[['bill_length_mm', 'species', 'sex']], drop_first = True)\ny = df['body_mass_g']\n\nmodel = LinearRegression().fit(X, y)"
+  },
+  {
+    "objectID": "model.html#get-some-information",
+    "href": "model.html#get-some-information",
+    "title": "Model",
+    "section": "Get some information",
+    "text": "Get some information\n\n\nCode\nprint(f\"R^2 {model.score(X,y)}\")\nprint(f\"Intercept {model.intercept_}\")\nprint(f\"Columns {X.columns}\")\nprint(f\"Coefficients {model.coef_}\")\n\n\nR^2 0.8555368759537614\nIntercept 2169.269720939402\nColumns Index(['bill_length_mm', 'species_Chinstrap', 'species_Gentoo', 'sex_male'], dtype='object')\nCoefficients [  32.53688677 -298.76553447 1094.86739145  547.36692408]"
+  },
+  {
+    "objectID": "model.html#turn-into-vetiver-model",
+    "href": "model.html#turn-into-vetiver-model",
+    "title": "Model",
+    "section": "Turn into Vetiver Model",
+    "text": "Turn into Vetiver Model\n\n\nCode\nfrom vetiver import VetiverModel\nv = VetiverModel(model, model_name='penguin_model', prototype_data=X)"
+  },
+  {
+    "objectID": "model.html#save-to-board",
+    "href": "model.html#save-to-board",
+    "title": "Model",
+    "section": "Save to Board",
+    "text": "Save to Board\n\n\nCode\nfrom pins import board_folder\nfrom vetiver import vetiver_pin_write\n\nmodel_board = board_folder(\"data/model\", allow_pickle_read = True)\nvetiver_pin_write(model_board, v)\n\n\nModel Cards provide a framework for transparent, responsible reporting. \n Use the vetiver `.qmd` Quarto template as a place to start, \n with vetiver.model_card()\n('The hash of pin \"penguin_model\" has not changed. Your pin will not be stored.',)"
+  },
+  {
+    "objectID": "model.html#turn-model-into-api",
+    "href": "model.html#turn-model-into-api",
+    "title": "Model",
+    "section": "Turn model into API",
+    "text": "Turn model into API\n\n\nCode\nfrom vetiver import VetiverAPI\napp = VetiverAPI(v, check_prototype = True)"
+  }
+]
