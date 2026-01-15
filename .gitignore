@@ -1,8 +1,0 @@
-/.quarto/
-**/*.quarto_ipynb
-renv
-*duckdb
-.DS_Store
-__pycache__
-.venv
-/_site/
